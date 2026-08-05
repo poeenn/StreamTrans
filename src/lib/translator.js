@@ -13,7 +13,16 @@ export const translateText = async (text, sourceLang, targetLang, engineType = '
 
 const translateWithChromeOrError = async (text, sourceLang, targetLang) => {
   try {
-    const api = typeof window !== 'undefined' ? (window.translation || (window.ai && window.ai.translator)) : null;
+    let api = null;
+    if (typeof window !== 'undefined') {
+      if ('Translator' in window) {
+        api = window.Translator; // Modern API (Chrome 138+)
+      } else if ('translation' in window) {
+        api = window.translation; // Older beta API
+      } else if (window.ai && 'translator' in window.ai) {
+        api = window.ai.translator; // Very old beta API
+      }
+    }
     
     if (!api) {
       return '【エラー: Chrome内蔵AIの設定が未完了です。画面の手順に沿って設定するか、クラウド自動翻訳を使用してください】';

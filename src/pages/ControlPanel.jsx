@@ -16,7 +16,8 @@ const ControlPanel = () => {
     if (typeof window !== 'undefined') {
       const hasTranslation = 'translation' in window;
       const hasAITranslator = window.ai && 'translator' in window.ai;
-      if (hasTranslation || hasAITranslator) {
+      const hasModernTranslator = 'Translator' in window;
+      if (hasTranslation || hasAITranslator || hasModernTranslator) {
         setChromeSupported(true);
       }
     }
