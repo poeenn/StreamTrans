@@ -88,7 +88,7 @@ const translateWithChromeOrError = async (text, sourceLang, targetLang) => {
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('translation-download-error'));
     }
-    return '【エラー: Chrome内蔵AIで問題が発生しました。設定を確認するかクラウド翻訳を使用してください】';
+    return `【エラー: ${error.message || '内部エラー'}】`;
   }
 };
 
