@@ -18,19 +18,25 @@ const translateWithChromeOrError = async (text, sourceLang, targetLang) => {
     let createFn = null;
 
     if (typeof window !== 'undefined') {
-      // 1. Standard API (Chrome 138+ / MDN spec)
-      if ('translation' in window && window.translation.canTranslate) {
+      // 1. Chrome 150+ (Translator API with availability method)
+      if ('Translator' in window && window.Translator.availability) {
+        api = window.Translator;
+        checkFn = api.availability.bind(api);
+        createFn = api.create.bind(api);
+      }
+      // 2. Standard API (Chrome 138+ / Older MDN spec)
+      else if ('translation' in window && window.translation.canTranslate) {
         api = window.translation;
         checkFn = api.canTranslate.bind(api);
         createFn = api.createTranslator ? api.createTranslator.bind(api) : api.create.bind(api);
       } 
-      // 2. Alternative Static API
+      // 3. Alternative Static API
       else if ('Translator' in window && window.Translator.canTranslate) {
         api = window.Translator;
         checkFn = api.canTranslate.bind(api);
         createFn = api.create ? api.create.bind(api) : api.createTranslator.bind(api);
       }
-      // 3. Early Beta API
+      // 4. Early Beta API
       else if (window.ai && window.ai.translator) {
         api = window.ai.translator;
         if (api.canTranslate) checkFn = api.canTranslate.bind(api);
@@ -61,11 +67,20 @@ const translateWithChromeOrError = async (text, sourceLang, targetLang) => {
       targetLanguage: targetCode,
     });
     
-    // Some APIs return an object { available: 'readily' }, some return string directly
-    const availability = typeof canTranslateResult === 'object' ? canTranslateResult.available : canTranslateResult;
+    let isAvailable = false;
+    let needsDownload = false;
 
-    if (availability !== 'no') {
-      if (typeof window !== 'undefined' && availability === 'after-download') {
+    if (typeof canTranslateResult === 'object' && canTranslateResult !== null) {
+      const avail = canTranslateResult.available;
+      isAvailable = avail !== 'no' && avail !== 'unavailable';
+      needsDownload = avail === 'after-download' || avail === 'downloadable';
+    } else {
+      isAvailable = canTranslateResult !== 'no' && canTranslateResult !== 'unavailable';
+      needsDownload = canTranslateResult === 'after-download' || canTranslateResult === 'downloadable';
+    }
+
+    if (isAvailable) {
+      if (typeof window !== 'undefined' && needsDownload) {
         window.dispatchEvent(new CustomEvent('translation-download-start'));
       }
 
