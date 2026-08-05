@@ -35,17 +35,28 @@ const translateWithChromeOrError = async (text, sourceLang, targetLang) => {
       return await cachedTranslator.translate(text);
     }
 
-    const canTranslate = await api.canTranslate({
+    const checkFn = api.canTranslate ? api.canTranslate.bind(api) : (api.capabilities ? api.capabilities.bind(api) : null);
+    if (!checkFn) {
+      throw new Error('Translation API method not found (canTranslate or capabilities).');
+    }
+
+    const canTranslateResult = await checkFn({
       sourceLanguage: sourceCode,
       targetLanguage: targetCode,
     });
+    
+    // Some APIs return an object { available: 'readily' }, some return string directly
+    const availability = typeof canTranslateResult === 'object' ? canTranslateResult.available : canTranslateResult;
 
-    if (canTranslate !== 'no') {
-      if (typeof window !== 'undefined' && canTranslate === 'after-download') {
+    if (availability !== 'no') {
+      if (typeof window !== 'undefined' && availability === 'after-download') {
         window.dispatchEvent(new CustomEvent('translation-download-start'));
       }
 
-      cachedTranslator = await api.createTranslator({
+      const createFn = api.create ? api.create.bind(api) : (api.createTranslator ? api.createTranslator.bind(api) : null);
+      if (!createFn) throw new Error('Create method not found');
+
+      cachedTranslator = await createFn({
         sourceLanguage: sourceCode,
         targetLanguage: targetCode,
         monitor(m) {
