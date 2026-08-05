@@ -8,7 +8,7 @@ const ControlPanel = () => {
   const [sourceLang, setSourceLang] = useState('ja-JP');
   const [targetLang, setTargetLang] = useState('en-US');
   const [hideTimeout, setHideTimeout] = useState(10);
-  const [engine, setEngine] = useState('cloud');
+  const [engine, setEngine] = useState('chrome');
   const [chromeSupported, setChromeSupported] = useState(false);
 
   useEffect(() => {
