@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, Settings, Copy, ExternalLink, Activity } from 'lucide-react';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
 import { useBroadcast } from '../hooks/useBroadcast';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { translateText } from '../lib/translator';
 
 const ControlPanel = () => {
-  const [sourceLang, setSourceLang] = useState('ja-JP');
-  const [targetLang, setTargetLang] = useState('en-US');
-  const [hideTimeout, setHideTimeout] = useState(10);
-  const [engine, setEngine] = useState('chrome');
+  const [sourceLang, setSourceLang] = useLocalStorage('jimaku_sourceLang', 'ja-JP');
+  const [targetLang, setTargetLang] = useLocalStorage('jimaku_targetLang', 'en-US');
+  const [hideTimeout, setHideTimeout] = useLocalStorage('jimaku_hideTimeout', 10);
+  const [engine, setEngine] = useLocalStorage('jimaku_engine', 'chrome');
   const [chromeSupported, setChromeSupported] = useState(false);
 
   useEffect(() => {
@@ -22,15 +23,15 @@ const ControlPanel = () => {
   }, []);
   
   // Design settings
-  const [transColor, setTransColor] = useState('#ffffff');
-  const [transSize, setTransSize] = useState(28);
-  const [origColor, setOrigColor] = useState('#e2e8f0');
-  const [origSize, setOrigSize] = useState(20);
-  const [strokeColor, setStrokeColor] = useState('#000000');
-  const [showOriginal, setShowOriginal] = useState(false);
-  const [textOpacity, setTextOpacity] = useState(1);
-  const [origMaxChars, setOrigMaxChars] = useState(40);
-  const [transMaxChars, setTransMaxChars] = useState(40);
+  const [transColor, setTransColor] = useLocalStorage('jimaku_transColor', '#ffffff');
+  const [transSize, setTransSize] = useLocalStorage('jimaku_transSize', 28);
+  const [origColor, setOrigColor] = useLocalStorage('jimaku_origColor', '#e2e8f0');
+  const [origSize, setOrigSize] = useLocalStorage('jimaku_origSize', 20);
+  const [strokeColor, setStrokeColor] = useLocalStorage('jimaku_strokeColor', '#000000');
+  const [showOriginal, setShowOriginal] = useLocalStorage('jimaku_showOriginal', false);
+  const [textOpacity, setTextOpacity] = useLocalStorage('jimaku_textOpacity', 1);
+  const [origMaxChars, setOrigMaxChars] = useLocalStorage('jimaku_origMaxChars', 40);
+  const [transMaxChars, setTransMaxChars] = useLocalStorage('jimaku_transMaxChars', 40);
   const [downloadProgress, setDownloadProgress] = useState(null);
 
   useEffect(() => {
