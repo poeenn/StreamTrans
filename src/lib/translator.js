@@ -14,13 +14,30 @@ export const translateText = async (text, sourceLang, targetLang, engineType = '
 const translateWithChromeOrError = async (text, sourceLang, targetLang) => {
   try {
     let api = null;
+    let checkFn = null;
+    let createFn = null;
+
     if (typeof window !== 'undefined') {
-      if ('Translator' in window) {
-        api = window.Translator; // Modern API (Chrome 138+)
-      } else if ('translation' in window) {
-        api = window.translation; // Older beta API
-      } else if (window.ai && 'translator' in window.ai) {
-        api = window.ai.translator; // Very old beta API
+      // 1. Standard API (Chrome 138+ / MDN spec)
+      if ('translation' in window && window.translation.canTranslate) {
+        api = window.translation;
+        checkFn = api.canTranslate.bind(api);
+        createFn = api.createTranslator ? api.createTranslator.bind(api) : api.create.bind(api);
+      } 
+      // 2. Alternative Static API
+      else if ('Translator' in window && window.Translator.canTranslate) {
+        api = window.Translator;
+        checkFn = api.canTranslate.bind(api);
+        createFn = api.create ? api.create.bind(api) : api.createTranslator.bind(api);
+      }
+      // 3. Early Beta API
+      else if (window.ai && window.ai.translator) {
+        api = window.ai.translator;
+        if (api.canTranslate) checkFn = api.canTranslate.bind(api);
+        else if (api.capabilities) checkFn = api.capabilities.bind(api);
+        
+        if (api.createTranslator) createFn = api.createTranslator.bind(api);
+        else if (api.create) createFn = api.create.bind(api);
       }
     }
     
@@ -35,9 +52,8 @@ const translateWithChromeOrError = async (text, sourceLang, targetLang) => {
       return await cachedTranslator.translate(text);
     }
 
-    const checkFn = api.canTranslate ? api.canTranslate.bind(api) : (api.capabilities ? api.capabilities.bind(api) : null);
     if (!checkFn) {
-      throw new Error('Translation API method not found (canTranslate or capabilities).');
+      throw new Error('Translation API is detected but no valid method found.');
     }
 
     const canTranslateResult = await checkFn({
@@ -53,7 +69,6 @@ const translateWithChromeOrError = async (text, sourceLang, targetLang) => {
         window.dispatchEvent(new CustomEvent('translation-download-start'));
       }
 
-      const createFn = api.create ? api.create.bind(api) : (api.createTranslator ? api.createTranslator.bind(api) : null);
       if (!createFn) throw new Error('Create method not found');
 
       cachedTranslator = await createFn({
