@@ -1,18 +1,18 @@
 :root {
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --bg: #0f172a;
-  --panel-bg: #1e293b;
-  --text: #f8fafc;
+  --primary: #f472b6;       /* Cute pink */
+  --primary-hover: #ec4899;
+  --bg: #fff0f5;            /* Lavender blush / soft pink background */
+  --panel-bg: rgba(255, 255, 255, 0.75); /* Frosted glass white */
+  --text: #475569;          /* Soft slate instead of pure black */
   --text-muted: #94a3b8;
-  --border: #334155;
-  --danger: #ef4444;
-  --success: #10b981;
+  --border: #fbcfe8;        /* Soft pink border */
+  --danger: #fb7185;        /* Rose */
+  --success: #34d399;       /* Mint green */
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'M PLUS Rounded 1c', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -30,17 +30,19 @@ body {
 
 .glass-panel {
   background: var(--panel-bg);
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid #ffffff;
+  border-radius: 24px;
   padding: 2rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px -5px rgba(244, 114, 182, 0.15), 0 8px 10px -6px rgba(244, 114, 182, 0.1);
 }
 
 h1 {
   margin-top: 0;
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(to right, #818cf8, #c084fc);
+  background: linear-gradient(to right, #f472b6, #fb7185);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: flex;
@@ -70,11 +72,12 @@ label {
 select, input[type="text"], input[type="number"], input[type="color"] {
   width: 100%;
   padding: 0.75rem 1rem;
-  background-color: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--border);
+  border-radius: 12px;
   color: var(--text);
   font-size: 1rem;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   transition: all 0.2s;
 }
 
@@ -93,7 +96,8 @@ select:focus, input[type="text"]:focus, input[type="number"]:focus {
   background-color: var(--primary);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(244, 114, 182, 0.3);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -120,11 +124,11 @@ select:focus, input[type="text"]:focus, input[type="number"]:focus {
   display: flex;
   align-items: flex-start;
   padding: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
   cursor: pointer;
   transition: all 0.2s;
-  background-color: var(--bg);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .radio-card:hover {
@@ -150,7 +154,8 @@ select:focus, input[type="text"]:focus, input[type="number"]:focus {
 
 .radio-card.selected {
   border-color: var(--primary);
-  background-color: rgba(99, 102, 241, 0.1);
+  background-color: rgba(244, 114, 182, 0.1);
+  box-shadow: 0 4px 12px rgba(244, 114, 182, 0.1);
 }
 
 .overlay-link {
@@ -252,9 +257,9 @@ select:focus, input[type="text"]:focus, input[type="number"]:focus {
                     linear-gradient(-45deg, transparent 75%, #ccc 75%);
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-  background-color: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background-color: #fdf2f8;
+  border: 2px solid var(--border);
+  border-radius: 16px;
   min-height: 200px;
   display: flex;
   flex-direction: column;
