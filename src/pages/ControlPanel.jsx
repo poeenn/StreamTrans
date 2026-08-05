@@ -228,16 +228,16 @@ const ControlPanel = () => {
               <label className={`radio-card ${engine === 'cloud' ? 'selected' : ''}`} onClick={() => setEngine('cloud')}>
                 <input type="radio" checked={engine === 'cloud'} readOnly />
                 <div className="radio-content">
-                  <h4>クラウド自動翻訳 (おすすめ)</h4>
-                  <p>設定不要ですぐに使えます。初心者の方はこちら。</p>
+                  <h4>クラウド自動翻訳 (予備)</h4>
+                  <p>お使いのブラウザがChrome内蔵AIに非対応の場合に選択してください。</p>
                 </div>
               </label>
               
               <label className={`radio-card ${engine === 'chrome' ? 'selected' : ''}`} onClick={() => setEngine('chrome')}>
                 <input type="radio" checked={engine === 'chrome'} readOnly />
                 <div className="radio-content">
-                  <h4>Chrome内蔵 AI翻訳 (上級者向け)</h4>
-                  <p>PCのローカルAIを使って超高速・遅延ゼロで翻訳します。※初回のみ設定が必要</p>
+                  <h4>Chrome内蔵 AI翻訳 (おすすめ)</h4>
+                  <p>PCのローカルAIを使って超高速・遅延ゼロで翻訳します。※設定不要</p>
                 </div>
               </label>
             </div>
@@ -246,7 +246,7 @@ const ControlPanel = () => {
               <div style={{ backgroundColor: 'rgba(0,0,0,0.1)', padding: '1rem', borderRadius: '8px', border: chromeSupported ? '1px solid var(--success)' : '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
                   <span className="status-indicator" style={{ backgroundColor: chromeSupported ? 'var(--success)' : 'var(--danger)', boxShadow: chromeSupported ? '0 0 8px var(--success)' : 'none' }}></span>
-                  <h4 style={{ margin: 0 }}>ステータス: {chromeSupported ? '利用可能' : '未設定 (設定が必要です)'}</h4>
+                  <h4 style={{ margin: 0 }}>ステータス: {chromeSupported ? '利用可能' : '利用不可 (クラウド翻訳をご利用ください)'}</h4>
                 </div>
                 
                 {chromeSupported ? (
@@ -269,7 +269,7 @@ const ControlPanel = () => {
                   </>
                 ) : (
                   <div style={{ fontSize: '0.85rem', color: 'var(--text)' }}>
-                    <p style={{ margin: '0 0 0.5rem 0', color: 'var(--danger)', fontWeight: 'bold' }}>⚠️ 翻訳AIが有効になっていません</p>
+                    <p style={{ margin: '0 0 0.5rem 0', color: 'var(--danger)', fontWeight: 'bold' }}>⚠️ 翻訳AIが利用できません</p>
                     <p style={{ margin: '0', color: 'var(--text-muted)' }}>お使いの環境ではChrome内蔵AIが利用できないため、「クラウド自動翻訳」を選択してください。</p>
                   </div>
                 )}
