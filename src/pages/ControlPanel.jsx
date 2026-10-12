@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff, Settings, Copy, ExternalLink, Activity } from 'lucide-react';
+import { Mic, MicOff, Settings, Copy, ExternalLink, Activity, Coffee, Heart, X } from 'lucide-react';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
 import { useBroadcast } from '../hooks/useBroadcast';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { translateText } from '../lib/translator';
 
 const ControlPanel = () => {
+  const [showSupportModal, setShowSupportModal] = useState(false);
   const [sourceLang, setSourceLang] = useLocalStorage('jimaku_sourceLang', 'ja-JP');
   const [targetLang, setTargetLang] = useLocalStorage('jimaku_targetLang', 'en-US');
   const [hideTimeout, setHideTimeout] = useLocalStorage('jimaku_hideTimeout', 10);
@@ -148,7 +149,31 @@ const ControlPanel = () => {
 
   return (
     <div className="container">
-      <h1><Activity /> 配信字幕くん (Live Translator)</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+        <h1 style={{ margin: 0 }}><Activity /> 配信字幕くん (Live Translator)</h1>
+        <button
+          type="button"
+          onClick={() => setShowSupportModal(true)}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            padding: '0.5rem 1.1rem',
+            backgroundColor: '#ffffff',
+            border: '2px solid #fbcfe8',
+            borderRadius: '999px',
+            color: '#db2777',
+            fontWeight: '700',
+            fontSize: '0.9rem',
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px rgba(244, 114, 182, 0.15)',
+            transition: 'all 0.2s'
+          }}
+        >
+          <Coffee size={18} />
+          <span>☕ 開発者を応援する</span>
+        </button>
+      </div>
       
       <div className="glass-panel" style={{ marginBottom: '2rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
@@ -411,6 +436,292 @@ const ControlPanel = () => {
         </div>
       </div>
 
+      {/* Footer Area: Developer Support & Recommended Streamer Tools */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.5rem', marginBottom: '2.5rem' }}>
+        
+        {/* Recommended Streamer Tool (Cross-promotion) */}
+        <div className="glass-panel" style={{
+          position: 'relative',
+          overflow: 'hidden',
+          background: 'linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 255, 255, 0.95) 100%)',
+          borderColor: '#f472b6',
+          borderWidth: '2px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.9rem' }}>
+            <div style={{
+              backgroundColor: '#fef3c7',
+              color: '#d97706',
+              padding: '0.6rem',
+              borderRadius: '12px',
+              fontSize: '1.5rem',
+              lineHeight: 1
+            }}>
+              💡
+            </div>
+            <div style={{ flex: 1 }}>
+              <span style={{
+                display: 'inline-block',
+                backgroundColor: '#f472b6',
+                color: 'white',
+                fontSize: '0.75rem',
+                fontWeight: 'bold',
+                padding: '0.15rem 0.6rem',
+                borderRadius: '999px',
+                marginBottom: '0.4rem'
+              }}>
+                おすすめ配信者ツール
+              </span>
+              <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.15rem', color: '#1e293b' }}>
+                確定申告・経費管理ツール『かんたん経費ノート（無料）』
+              </h3>
+              <p style={{ margin: '0 0 0.8rem 0', fontSize: '0.85rem', color: '#64748b', lineHeight: 1.6 }}>
+                配信で使った機材やゲーム代、経費にしてる？<br />
+                スマホでレシートを撮るだけ！確定申告や日々の収支をラクラク整理できる配信者特化の無料メモアプリです。
+              </p>
+              <a
+                href="https://tax-app.pages.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{
+                  fontSize: '0.85rem',
+                  padding: '0.5rem 1.1rem',
+                  backgroundColor: '#f472b6',
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  borderRadius: '999px',
+                  fontWeight: 600
+                }}
+              >
+                <span>かんたん経費ノートを開く</span>
+                <ExternalLink size={16} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Developer Support Section */}
+        <div className="glass-panel" style={{
+          position: 'relative',
+          overflow: 'hidden',
+          background: 'linear-gradient(135deg, rgba(254, 243, 199, 0.45) 0%, rgba(255, 255, 255, 0.95) 100%)',
+          borderColor: '#f59e0b',
+          borderWidth: '2px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.9rem' }}>
+            <div style={{
+              backgroundColor: '#ffedd5',
+              color: '#ea580c',
+              padding: '0.6rem',
+              borderRadius: '12px',
+              fontSize: '1.5rem',
+              lineHeight: 1
+            }}>
+              ☕
+            </div>
+            <div style={{ flex: 1 }}>
+              <span style={{
+                display: 'inline-block',
+                backgroundColor: '#f59e0b',
+                color: 'white',
+                fontSize: '0.75rem',
+                fontWeight: 'bold',
+                padding: '0.15rem 0.6rem',
+                borderRadius: '999px',
+                marginBottom: '0.4rem'
+              }}>
+                開発者を応援
+              </span>
+              <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.15rem', color: '#1e293b' }}>
+                ☕ 開発者を応援する / コーヒーをおごる
+              </h3>
+              <p style={{ margin: '0 0 0.8rem 0', fontSize: '0.85rem', color: '#64748b', lineHeight: 1.6 }}>
+                StreamTransは完全無料で誰でもお使いいただけます。配信活動のお役に立ちましたら、継続開発や維持への温かいご支援をいただけると大変励みになります！
+              </p>
+              <button
+                type="button"
+                onClick={() => setShowSupportModal(true)}
+                className="btn"
+                style={{
+                  fontSize: '0.85rem',
+                  padding: '0.5rem 1.1rem',
+                  backgroundColor: '#f59e0b',
+                  color: '#ffffff',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  borderRadius: '999px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  border: 'none'
+                }}
+              >
+                <span>支援・応援の方法を見る</span>
+                <Heart size={16} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Support Modal */}
+      {showSupportModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(15, 23, 42, 0.6)',
+          backdropFilter: 'blur(4px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          padding: '1rem'
+        }} onClick={() => setShowSupportModal(false)}>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '24px',
+            maxWidth: '520px',
+            width: '100%',
+            padding: '2rem',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            position: 'relative'
+          }} onClick={e => e.stopPropagation()}>
+            <button
+              onClick={() => setShowSupportModal(false)}
+              aria-label="閉じる"
+              style={{
+                position: 'absolute',
+                top: '1.2rem',
+                right: '1.2rem',
+                background: '#f1f5f9',
+                border: 'none',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                color: '#64748b'
+              }}
+            >
+              <X size={18} />
+            </button>
+            
+            <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>☕</div>
+              <h2 style={{ margin: '0 0 0.5rem 0', fontSize: '1.4rem', color: '#1e293b' }}>開発者を応援する</h2>
+              <p style={{ margin: 0, fontSize: '0.9rem', color: '#64748b', lineHeight: 1.6 }}>
+                StreamTrans（配信字幕くん）をご利用いただきありがとうございます！<br />
+                いただいたご支援はサーバー代・API費用や機能改善の継続に大切に活用させていただきます。
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
+              <a
+                href="https://ofuse.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '1rem 1.25rem',
+                  borderRadius: '16px',
+                  border: '2px solid #e2e8f0',
+                  color: '#1e293b',
+                  textDecoration: 'none',
+                  backgroundColor: '#fafafa'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <span style={{ fontSize: '1.5rem' }}>💌</span>
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 'bold', fontSize: '0.95rem' }}>OFUSE でファンレター・支援</div>
+                    <div style={{ fontSize: '0.8rem', color: '#64748b' }}>メッセージ付きで1文字1円から応援</div>
+                  </div>
+                </div>
+                <ExternalLink size={18} color="#94a3b8" />
+              </a>
+
+              <a
+                href="https://ko-fi.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '1rem 1.25rem',
+                  borderRadius: '16px',
+                  border: '2px solid #e2e8f0',
+                  color: '#1e293b',
+                  textDecoration: 'none',
+                  backgroundColor: '#fafafa'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <span style={{ fontSize: '1.5rem' }}>☕</span>
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 'bold', fontSize: '0.95rem' }}>Ko-fi でコーヒーをおごる</div>
+                    <div style={{ fontSize: '0.8rem', color: '#64748b' }}>海外決済・クレカ対応の気軽な投げ銭</div>
+                  </div>
+                </div>
+                <ExternalLink size={18} color="#94a3b8" />
+              </a>
+
+              <a
+                href="https://booth.pm"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '1rem 1.25rem',
+                  borderRadius: '16px',
+                  border: '2px solid #e2e8f0',
+                  color: '#1e293b',
+                  textDecoration: 'none',
+                  backgroundColor: '#fafafa'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <span style={{ fontSize: '1.5rem' }}>🎁</span>
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 'bold', fontSize: '0.95rem' }}>BOOTH で応援・お布施</div>
+                    <div style={{ fontSize: '0.8rem', color: '#64748b' }}>pixiv・BOOTH経由でのご支援</div>
+                  </div>
+                </div>
+                <ExternalLink size={18} color="#94a3b8" />
+              </a>
+            </div>
+
+            <button
+              onClick={() => setShowSupportModal(false)}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                borderRadius: '12px',
+                border: 'none',
+                backgroundColor: '#f1f5f9',
+                color: '#475569',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              閉じる
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
