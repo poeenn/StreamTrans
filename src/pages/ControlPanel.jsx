@@ -439,73 +439,8 @@ const ControlPanel = () => {
         </div>
       </div>
 
-      {/* Footer Area: Developer Support & Recommended Streamer Tools */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.5rem', marginBottom: '2.5rem' }}>
-        
-        {/* Recommended Streamer Tool (Cross-promotion) */}
-        <div className="glass-panel" style={{
-          position: 'relative',
-          overflow: 'hidden',
-          background: 'linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 255, 255, 0.95) 100%)',
-          borderColor: '#f472b6',
-          borderWidth: '2px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.9rem' }}>
-            <div style={{
-              backgroundColor: '#fef3c7',
-              color: '#d97706',
-              padding: '0.6rem',
-              borderRadius: '12px',
-              fontSize: '1.5rem',
-              lineHeight: 1
-            }}>
-              💡
-            </div>
-            <div style={{ flex: 1 }}>
-              <span style={{
-                display: 'inline-block',
-                backgroundColor: '#f472b6',
-                color: 'white',
-                fontSize: '0.75rem',
-                fontWeight: 'bold',
-                padding: '0.15rem 0.6rem',
-                borderRadius: '999px',
-                marginBottom: '0.4rem'
-              }}>
-                おすすめ配信者ツール
-              </span>
-              <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.15rem', color: '#1e293b' }}>
-                確定申告・経費管理ツール『かんたん経費ノート（無料）』
-              </h3>
-              <p style={{ margin: '0 0 0.8rem 0', fontSize: '0.85rem', color: '#64748b', lineHeight: 1.6 }}>
-                配信で使った機材やゲーム代、経費にしてる？<br />
-                スマホでレシートを撮るだけ！確定申告や日々の収支をラクラク整理できる配信者特化の無料メモアプリです。
-              </p>
-              <a
-                href="https://tax-app.pages.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{
-                  fontSize: '0.85rem',
-                  padding: '0.5rem 1.1rem',
-                  backgroundColor: '#f472b6',
-                  color: '#ffffff',
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  borderRadius: '999px',
-                  fontWeight: 600
-                }}
-              >
-                <span>かんたん経費ノートを開く</span>
-                <ExternalLink size={16} />
-              </a>
-            </div>
-          </div>
-        </div>
-
+      {/* Footer Area: Developer Support */}
+      <div style={{ marginBottom: '2.5rem' }}>
         {/* Developer Support Section */}
         <div className="glass-panel" style={{
           position: 'relative',
