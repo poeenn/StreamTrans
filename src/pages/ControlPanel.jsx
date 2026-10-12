@@ -5,6 +5,9 @@ import { useBroadcast } from '../hooks/useBroadcast';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { translateText } from '../lib/translator';
 
+// どねる（Doneru）支援URL
+const DONERU_URL = 'https://doneru.jp/poeenn';
+
 const ControlPanel = () => {
   const [showSupportModal, setShowSupportModal] = useState(false);
   const [sourceLang, setSourceLang] = useLocalStorage('jimaku_sourceLang', 'ja-JP');
@@ -171,7 +174,7 @@ const ControlPanel = () => {
           }}
         >
           <Coffee size={18} />
-          <span>☕ 開発者を応援する</span>
+          <span>☕ どねるで応援する</span>
         </button>
       </div>
       
@@ -536,7 +539,7 @@ const ControlPanel = () => {
                 開発者を応援
               </span>
               <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.15rem', color: '#1e293b' }}>
-                ☕ 開発者を応援する / コーヒーをおごる
+                ☕ どねる（Doneru）で応援する
               </h3>
               <p style={{ margin: '0 0 0.8rem 0', fontSize: '0.85rem', color: '#64748b', lineHeight: 1.6 }}>
                 StreamTransは完全無料で誰でもお使いいただけます。配信活動のお役に立ちましたら、継続開発や維持への温かいご支援をいただけると大変励みになります！
@@ -559,7 +562,7 @@ const ControlPanel = () => {
                   border: 'none'
                 }}
               >
-                <span>支援・応援の方法を見る</span>
+                <span>どねる（Doneru）で支援する</span>
                 <Heart size={16} />
               </button>
             </div>
@@ -617,92 +620,61 @@ const ControlPanel = () => {
             
             <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>☕</div>
-              <h2 style={{ margin: '0 0 0.5rem 0', fontSize: '1.4rem', color: '#1e293b' }}>開発者を応援する</h2>
+              <h2 style={{ margin: '0 0 0.5rem 0', fontSize: '1.4rem', color: '#1e293b' }}>どねる（Doneru）で応援する</h2>
               <p style={{ margin: 0, fontSize: '0.9rem', color: '#64748b', lineHeight: 1.6 }}>
                 StreamTrans（配信字幕くん）をご利用いただきありがとうございます！<br />
-                いただいたご支援はサーバー代・API費用や機能改善の継続に大切に活用させていただきます。
+                いただいたご支援はサーバー代・開発継続費用に大切に活用させていただきます。
               </p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <a
-                href="https://ofuse.me"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '1rem 1.25rem',
-                  borderRadius: '16px',
-                  border: '2px solid #e2e8f0',
-                  color: '#1e293b',
-                  textDecoration: 'none',
-                  backgroundColor: '#fafafa'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <span style={{ fontSize: '1.5rem' }}>💌</span>
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 'bold', fontSize: '0.95rem' }}>OFUSE でファンレター・支援</div>
-                    <div style={{ fontSize: '0.8rem', color: '#64748b' }}>メッセージ付きで1文字1円から応援</div>
-                  </div>
-                </div>
-                <ExternalLink size={18} color="#94a3b8" />
-              </a>
-
-              <a
-                href="https://ko-fi.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '1rem 1.25rem',
-                  borderRadius: '16px',
-                  border: '2px solid #e2e8f0',
-                  color: '#1e293b',
-                  textDecoration: 'none',
-                  backgroundColor: '#fafafa'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <span style={{ fontSize: '1.5rem' }}>☕</span>
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 'bold', fontSize: '0.95rem' }}>Ko-fi でコーヒーをおごる</div>
-                    <div style={{ fontSize: '0.8rem', color: '#64748b' }}>海外決済・クレカ対応の気軽な投げ銭</div>
-                  </div>
-                </div>
-                <ExternalLink size={18} color="#94a3b8" />
-              </a>
-
-              <a
-                href="https://booth.pm"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '1rem 1.25rem',
-                  borderRadius: '16px',
-                  border: '2px solid #e2e8f0',
-                  color: '#1e293b',
-                  textDecoration: 'none',
-                  backgroundColor: '#fafafa'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <span style={{ fontSize: '1.5rem' }}>🎁</span>
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 'bold', fontSize: '0.95rem' }}>BOOTH で応援・お布施</div>
-                    <div style={{ fontSize: '0.8rem', color: '#64748b' }}>pixiv・BOOTH経由でのご支援</div>
-                  </div>
-                </div>
-                <ExternalLink size={18} color="#94a3b8" />
-              </a>
+            <div style={{
+              backgroundColor: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              borderRadius: '16px',
+              padding: '1.25rem',
+              marginBottom: '1.5rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.75rem',
+              fontSize: '0.9rem',
+              color: '#334155'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                <span style={{ fontSize: '1.25rem' }}>🪙</span>
+                <span>PayPay / クレジットカード / Amazon Pay などに対応</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                <span style={{ fontSize: '1.25rem' }}>💬</span>
+                <span>応援メッセージを添えて手軽にチップを送れます</span>
+              </div>
             </div>
+
+            <a
+              href={DONERU_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                width: '100%',
+                padding: '0.9rem 1.5rem',
+                borderRadius: '12px',
+                backgroundColor: '#f59e0b',
+                color: '#ffffff',
+                fontWeight: '700',
+                fontSize: '1rem',
+                textDecoration: 'none',
+                boxShadow: '0 4px 12px rgba(245, 158, 11, 0.3)',
+                marginBottom: '0.75rem',
+                boxSizing: 'border-box',
+                transition: 'background-color 0.2s'
+              }}
+            >
+              <span>どねる（Doneru）を開いて応援する</span>
+              <ExternalLink size={18} />
+            </a>
 
             <button
               onClick={() => setShowSupportModal(false)}
